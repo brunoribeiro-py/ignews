@@ -1,4 +1,4 @@
-import { GetStaticProps } from "next"
+import { GetStaticPaths, GetStaticProps } from "next"
 import Link from 'next/link';
 import { RichText } from "prismic-dom";
 import { getPrismicClient } from "../../../services/prismic";
@@ -53,7 +53,7 @@ export default function PostPreview({ post }: IPostPreviewProps) {
   )
 }
 
-export const getStaticPaths = () => {
+export const getStaticPaths:GetStaticPaths = async () => {
   return {
     paths: [],
     fallback: 'blocking',
@@ -83,6 +83,7 @@ export const getStaticProps:GetStaticProps = async ({ params }) => {
   return {
     props: {
       post,
-    }
+    },
+    redirect: 60 * 30, //30 minutos
   }
 }
